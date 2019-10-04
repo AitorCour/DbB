@@ -10,6 +10,12 @@ public class InputManager : MonoBehaviour
 	//public Animator shoot2;
     private Gun gun;
 
+    public bool mobileControls;
+    [HideInInspector]
+    public Vector2 mobileAxis;
+    [HideInInspector]
+    public Vector2 mobileLookAxis;
+    public bool shootAxis;
     //private MouseCursor mouseCursor;
 
 	// Use this for initialization
@@ -21,7 +27,10 @@ public class InputManager : MonoBehaviour
         gun = playerController.GetComponent<Gun>();
 
         //mouseCursor = new MouseCursor();
-        HideCursor();
+        if(!mobileControls)
+        {
+            HideCursor();
+        }
 	}
 	
 	// Update is called once per frame
@@ -29,37 +38,69 @@ public class InputManager : MonoBehaviour
     {
         //Mover al player
         Vector2 inputAxis = Vector2.zero;
-        inputAxis.x = Input.GetAxis("Horizontal");
-        inputAxis.y = Input.GetAxis("Vertical");
+        if (!mobileControls)
+        {
+            inputAxis.x = Input.GetAxis("Horizontal");
+            inputAxis.y = Input.GetAxis("Vertical");
+        }
+        else if(mobileControls)
+        {
+            inputAxis.x = mobileAxis.x;
+            inputAxis.y = mobileAxis.y;
+        }
         playerController.SetAxis(inputAxis);
         //LLamar al salto
-        if(Input.GetButtonDown("Jump")) playerController.StartJump();
+        if (Input.GetButtonDown("Jump")) playerController.StartJump();
+
         //Camara rotación
         Vector2 mouseAxis = Vector2.zero;
-        mouseAxis.x = Input.GetAxis("Mouse X") * sensitivity;
-        mouseAxis.y = Input.GetAxis("Mouse Y") * sensitivity;
-
+        if (!mobileControls)
+        {
+            mouseAxis.x = Input.GetAxis("Mouse X") * sensitivity;
+            mouseAxis.y = Input.GetAxis("Mouse Y") * sensitivity;
+        }
+        else if(mobileControls)
+        {
+            mouseAxis.x = mobileLookAxis.x;
+            mouseAxis.y = mobileLookAxis.y;
+        }
         lookRotation.SetRotation(mouseAxis);
 
-        if(Input.GetMouseButtonDown(0)) HideCursor();
+        if (Input.GetMouseButtonDown(0) && !mobileControls) HideCursor();
         else if(Input.GetKeyDown(KeyCode.Escape)) ShowCursor();
 
-		if (Input.GetMouseButton (0)) 
+		if (Input.GetMouseButton (0) && !mobileControls) 
 		{
-			
 			gun.Shot();
-			//shoot2.SetTrigger("shoot2");
-
+            //shoot2.SetTrigger("shoot2");
 		}
-        if(Input.GetMouseButtonDown(0))
+        if(shootAxis && mobileControls)
+        {
+            gun.Shot();
+        }
+        if (Input.GetMouseButtonDown(0) && !mobileControls)
         {
             Debug.Log("particles");
             gun.isShootingParticles = true;
             gun.ShootParticles();
         }
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && !mobileControls)
         {
             Debug.Log("NOTparticles");
+            gun.isShootingParticles = false;
+            gun.ShootParticles();
+        }
+
+        if (shootAxis && mobileControls)
+        {
+            Debug.Log("TabParticles");
+            gun.isShootingParticles = true;
+            gun.ShootParticles();
+        }
+        if (!shootAxis && mobileControls)
+        {
+            Debug.Log("NOTTabParticles");
+
             gun.isShootingParticles = false;
             gun.ShootParticles();
         }
@@ -70,7 +111,6 @@ public class InputManager : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-
     }
 
     public void HideCursor()
