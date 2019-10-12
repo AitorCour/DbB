@@ -6,6 +6,7 @@ public class EnemyBehaviour : MonoBehaviour
 {
     public float life;
     protected PlayerController player;
+    protected Animator animator;
     public float distance;
     public float attackDistance;
     public float speed;
@@ -13,6 +14,7 @@ public class EnemyBehaviour : MonoBehaviour
     protected virtual void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame

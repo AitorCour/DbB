@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - TouchField
+  - JumpButton
+  - ShootButton
+  - DynamicJoystick
+  - ReloadButton
+  - Boundary
   layers:
   - Default
   - TransparentFX

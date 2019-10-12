@@ -15,7 +15,15 @@ public class InputManager : MonoBehaviour
     public Vector2 mobileAxis;
     [HideInInspector]
     public Vector2 mobileLookAxis;
+    [HideInInspector]
     public bool shootAxis;
+    [HideInInspector]
+    public bool jumpAxis;
+    [HideInInspector]
+    public bool reloadAxis;
+    private bool shooting;
+    private bool jumping;
+
     //private MouseCursor mouseCursor;
 
 	// Use this for initialization
@@ -50,8 +58,16 @@ public class InputManager : MonoBehaviour
         }
         playerController.SetAxis(inputAxis);
         //LLamar al salto
-        if (Input.GetButtonDown("Jump")) playerController.StartJump();
-
+        if (Input.GetButtonDown("Jump") && !mobileControls) playerController.StartJump();
+        else if (jumpAxis && mobileControls && !jumping)
+        {
+            playerController.StartJump();
+            jumping = true;
+        }
+        else if (!jumpAxis && mobileControls && jumping)
+        {
+            jumping = false;
+        }
         //Camara rotación
         Vector2 mouseAxis = Vector2.zero;
         if (!mobileControls)
@@ -91,21 +107,34 @@ public class InputManager : MonoBehaviour
             gun.ShootParticles();
         }
 
-        if (shootAxis && mobileControls)
+        if (shootAxis && mobileControls && !shooting)
         {
-            Debug.Log("TabParticles");
-            gun.isShootingParticles = true;
-            gun.ShootParticles();
+            ShootAxis();
         }
         if (!shootAxis && mobileControls)
         {
-            Debug.Log("NOTTabParticles");
-
-            gun.isShootingParticles = false;
-            gun.ShootParticles();
+            NoShootAxis();
         }
 
-        if (Input.GetKeyDown(KeyCode.R)) gun.Reload();
+        if (Input.GetKeyDown(KeyCode.R) && !mobileControls) gun.Reload();
+        else if (reloadAxis && mobileControls)
+        {
+            gun.Reload();
+        }
+    }
+    void ShootAxis()
+    {
+        //Debug.Log("TabParticles");
+        gun.isShootingParticles = true;
+        gun.ShootParticles();
+        shooting = true;
+    }
+    void NoShootAxis()
+    {
+        //Debug.Log("NOTTabParticles");
+        gun.isShootingParticles = false;
+        gun.ShootParticles();
+        shooting = false;
     }
     public void ShowCursor()
     {

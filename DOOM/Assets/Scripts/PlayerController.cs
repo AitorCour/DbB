@@ -71,6 +71,7 @@ public class PlayerController : MonoBehaviour
     public void LoseLife(float damage)
     {
         playerLife -= damage;
+        Handheld.Vibrate();
     }
     
 }
