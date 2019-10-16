@@ -11,6 +11,7 @@ TagManager:
   - DynamicJoystick
   - ReloadButton
   - Boundary
+  - PauseButton
   layers:
   - Default
   - TransparentFX

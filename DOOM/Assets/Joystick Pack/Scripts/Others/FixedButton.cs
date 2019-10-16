@@ -1,10 +1,12 @@
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class FixedButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     [HideInInspector]
-    public bool Pressed;
+    public bool pressed;
 
     // Use this for initialization
     void Start()
@@ -13,10 +15,10 @@ public class FixedButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Pressed = true;
+        pressed = true;
     }
     public void OnPointerUp(PointerEventData eventData)
     {
-        Pressed = false;
+        pressed = false;
     }
 }

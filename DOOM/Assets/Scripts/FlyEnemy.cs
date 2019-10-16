@@ -6,7 +6,6 @@ public class FlyEnemy : EnemyBehaviour
 {
     public float shootDistance;
     public float fireRate;
-    private bool canMove;
     private bool isShooting;
 
     private Ecanon canon;

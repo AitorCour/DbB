@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     private FixedMoveCameraButton shootButton;
     private FixedButton jumpButton;
     private FixedButton reloadButton;
+
+    private bool paused;
     void Start()
     {
         inputManager = GetComponent<InputManager>();
@@ -19,6 +21,8 @@ public class GameManager : MonoBehaviour
         shootButton = GameObject.FindGameObjectWithTag("ShootButton").GetComponent<FixedMoveCameraButton>();
         jumpButton = GameObject.FindGameObjectWithTag("JumpButton").GetComponent<FixedButton>();
         reloadButton = GameObject.FindGameObjectWithTag("ReloadButton").GetComponent<FixedButton>();
+
+        paused = false;
     }
 
     // Update is called once per frame
@@ -27,7 +31,22 @@ public class GameManager : MonoBehaviour
         inputManager.mobileAxis = dynamicJoystick.Direction;
         inputManager.mobileLookAxis = fixedTouchField.TouchDist;
         inputManager.shootAxis = shootButton.Pressed;
-        inputManager.jumpAxis = jumpButton.Pressed;
-        inputManager.reloadAxis = reloadButton.Pressed;
+        inputManager.jumpAxis = jumpButton.pressed;
+        inputManager.reloadAxis = reloadButton.pressed;
+    }
+    public void Pause()
+    {
+        if (!paused)
+        {
+            Time.timeScale = 0;
+            inputManager.Pause(true);
+            paused = true;
+        }
+        else
+        {
+            Time.timeScale = 1;
+            inputManager.Pause(false);
+            paused = false;
+        }
     }
 }

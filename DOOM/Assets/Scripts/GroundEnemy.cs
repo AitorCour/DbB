@@ -21,16 +21,18 @@ public class GroundEnemy : EnemyBehaviour
     {
         base.Update();
         agent.SetDestination(player.transform.position);
-        if(distance <= attackDistance)
+        if (distance <= attackDistance)
         {
             agent.isStopped = true;
             Attack();
-            
+
         }
-        else if(distance > attackDistance && !isAttacking)
+        else if (distance > attackDistance && !isAttacking && canMove)
         {
             agent.isStopped = false;
         }
+        else agent.isStopped = true;
+
         if(agent.isStopped)
         {
             animator.SetBool("Walking", false);
@@ -45,7 +47,7 @@ public class GroundEnemy : EnemyBehaviour
         if (isAttacking) return;
 
         Debug.Log("Shot");
-        animator.SetBool("Punch", true);
+        animator.SetTrigger("Punch");
         isAttacking = true;
         StartCoroutine(WaitFistRate());
     }
@@ -53,7 +55,7 @@ public class GroundEnemy : EnemyBehaviour
     {
         yield return new WaitForSeconds(fistRate);
         isAttacking = false;
-        
+
         // yield return null;//cierra la corutina
     }
 }

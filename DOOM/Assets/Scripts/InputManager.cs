@@ -5,6 +5,7 @@ using UnityEngine;
 public class InputManager : MonoBehaviour
 {
     private PlayerController playerController;
+    private GameManager gameManager;
     private float sensitivity = 2.5f;
     private LookRotation lookRotation;
 	//public Animator shoot2;
@@ -21,19 +22,22 @@ public class InputManager : MonoBehaviour
     public bool jumpAxis;
     [HideInInspector]
     public bool reloadAxis;
+
     private bool shooting;
     private bool jumping;
+    private bool paused;
 
     //private MouseCursor mouseCursor;
 
 	// Use this for initialization
 	void Start ()
     {
-		//shoot2 = GetComponent<Animator>();
+        //shoot2 = GetComponent<Animator>();
+        gameManager = GetComponent<GameManager>();
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         lookRotation = playerController.GetComponent<LookRotation>();
         gun = playerController.GetComponent<Gun>();
-
+        paused = false;
         //mouseCursor = new MouseCursor();
         if(!mobileControls)
         {
@@ -70,12 +74,12 @@ public class InputManager : MonoBehaviour
         }
         //Camara rotación
         Vector2 mouseAxis = Vector2.zero;
-        if (!mobileControls)
+        if (!mobileControls && !paused)
         {
             mouseAxis.x = Input.GetAxis("Mouse X") * sensitivity;
             mouseAxis.y = Input.GetAxis("Mouse Y") * sensitivity;
         }
-        else if(mobileControls)
+        else if(mobileControls && !paused)
         {
             mouseAxis.x = mobileLookAxis.x;
             mouseAxis.y = mobileLookAxis.y;
@@ -85,12 +89,12 @@ public class InputManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && !mobileControls) HideCursor();
         else if(Input.GetKeyDown(KeyCode.Escape)) ShowCursor();
 
-		if (Input.GetMouseButton (0) && !mobileControls) 
+		if (Input.GetMouseButton (0) && !mobileControls && !paused) 
 		{
 			gun.Shot();
             //shoot2.SetTrigger("shoot2");
 		}
-        if(shootAxis && mobileControls)
+        if(shootAxis && mobileControls && !paused)
         {
             gun.Shot();
         }
@@ -121,6 +125,12 @@ public class InputManager : MonoBehaviour
         {
             gun.Reload();
         }
+
+        //Pause
+        if (Input.GetKeyDown(KeyCode.Escape) && !mobileControls)
+        {
+            gameManager.Pause();
+        }
     }
     void ShootAxis()
     {
@@ -146,5 +156,9 @@ public class InputManager : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+    public void Pause(bool pause)
+    {
+        paused = pause;
     }
 }
