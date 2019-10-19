@@ -45,7 +45,7 @@ public class GroundEnemy : EnemyBehaviour
     private void Attack()
     {
         if (isAttacking) return;
-
+        if (isDead) return;
         Debug.Log("Shot");
         animator.SetTrigger("Punch");
         isAttacking = true;
