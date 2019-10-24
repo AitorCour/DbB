@@ -16,6 +16,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     public bool canMove;
     protected bool isDead;
+    public bool isInUse;
     // Start is called before the first frame update
     protected virtual void Start()
     {
@@ -70,6 +71,7 @@ public class EnemyBehaviour : MonoBehaviour
         //this.enabled = false;
         animator.enabled = false;
         life = iniLife;
+        isInUse = false;
     }
     /*private void SetRagdollParts()
     {

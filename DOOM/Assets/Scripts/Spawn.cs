@@ -45,10 +45,20 @@ public class Spawn : MonoBehaviour
     }
     void SpawnEnemy()
     {
-        enemies[currentEnemy].transform.position = transform.position;
-        enemies[currentEnemy].canMove = true;
-        enemies[currentEnemy].animator.enabled = true;
-        currentEnemy++;
-        if (currentEnemy >= maxEnemies) currentEnemy = 0;
+        if (enemies[currentEnemy].isInUse == false)
+        {
+            enemies[currentEnemy].transform.position = transform.position;
+            enemies[currentEnemy].canMove = true;
+            enemies[currentEnemy].animator.enabled = true;
+            enemies[currentEnemy].isInUse = true;
+            currentEnemy++;
+            if (currentEnemy >= maxEnemies) currentEnemy = 0;
+        }
+        else if(enemies[currentEnemy].isInUse == true)
+        {
+            currentEnemy++;
+            if (currentEnemy >= maxEnemies) currentEnemy = 0;
+            //SpawnEnemy();
+        }
     }
 }

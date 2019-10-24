@@ -102,13 +102,13 @@ public class InputManager : MonoBehaviour
         {
             Debug.Log("particles");
             gun.isShootingParticles = true;
-            gun.ShootParticles();
+            //gun.ShootParticles();
         }
         if (Input.GetMouseButtonUp(0) && !mobileControls)
         {
             Debug.Log("NOTparticles");
             gun.isShootingParticles = false;
-            gun.ShootParticles();
+            //gun.ShootParticles();
         }
 
         if (shootAxis && mobileControls && !shooting)
@@ -136,14 +136,14 @@ public class InputManager : MonoBehaviour
     {
         //Debug.Log("TabParticles");
         gun.isShootingParticles = true;
-        gun.ShootParticles();
+        //gun.ShootParticles();
         shooting = true;
     }
     void NoShootAxis()
     {
         //Debug.Log("NOTTabParticles");
         gun.isShootingParticles = false;
-        gun.ShootParticles();
+        //gun.ShootParticles();
         shooting = false;
     }
     public void ShowCursor()
