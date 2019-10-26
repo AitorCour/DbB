@@ -20,6 +20,7 @@ public class GroundEnemy : EnemyBehaviour
     protected override void Update()
     {
         base.Update();
+        //if (isDead) return;
         agent.SetDestination(player.transform.position);
         if (distance <= attackDistance)
         {

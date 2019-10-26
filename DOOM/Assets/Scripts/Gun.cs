@@ -13,6 +13,9 @@ public class Gun : MonoBehaviour
     public float hitForce;
     public float hitDamage;
 
+    private float xVar;
+    private float yVar;
+
     public bool isShooting;
     public bool isReloading;
     public bool isShootingParticles;
@@ -37,13 +40,13 @@ public class Gun : MonoBehaviour
         isShooting = false;
         isReloading = false;
         currentAmmo = maxAmmo;
-        SetShootGun();
+        SetMiniGun();
 	}
 	
 
     public void Shot()
     {
-
+        
         if (isShooting || isReloading || currentAmmo <= 0)
         {
             return;
@@ -52,31 +55,67 @@ public class Gun : MonoBehaviour
 
         isShooting = true;
         currentAmmo--;
-        
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); //Coje el punto de la posicion del mouse y lanza un rayo
-        
-        RaycastHit hit = new RaycastHit();
-        if(Physics.Raycast(ray, out hit, maxDistance, mask))
+        if (!shootgun)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); //Coje el punto de la posicion del mouse y lanza un rayo
+
+            RaycastHit hit = new RaycastHit();
+            if (Physics.Raycast(ray, out hit, maxDistance, mask))
+            {
+                Debug.Log(hit.transform.name);
+                //Debug.DrawRay(transform.position, ray.direction * hit.distance, Color.red, 1.0f);
+
+                if (hit.rigidbody != null)
+                {
+                    Debug.Log("No null");
+                    hit.rigidbody.AddForce(ray.direction * hitForce, ForceMode.Impulse);
+
+                    EnemyBehaviour target = hit.transform.gameObject.GetComponent<EnemyBehaviour>();
+
+                    targetEnemy = target;
+                    targetEnemy.LoseLife(hitDamage);
+                }
+            }
+        }
+        else if (shootgun)
+        {
+            for (int i = 0; i < 20; i++)
+            {
+                xVar = Random.Range(-0.3f, 0.3f);
+                yVar = Random.Range(-0.3f, 0.3f);
+                ShotShotgun();
+            }
+        }
+        StartCoroutine(WaitFireRate());
+    }
+    void ShotShotgun()
+    {
+        Vector3 rayOrigin = new Vector3(0.5f, 0.5f, 0f); // center of the screen
+
+        // actual Ray
+        Vector3 origin = Camera.main.ViewportToWorldPoint(rayOrigin);
+        Vector3 direction = Camera.main.transform.forward + new Vector3(xVar, yVar, 0);
+        Ray ray = new Ray(origin, direction);
+        RaycastHit hit;
+        //RaycastHit hit = new RaycastHit();
+        if (Physics.Raycast(ray, out hit, maxDistance, mask))
         {
             Debug.Log(hit.transform.name);
             //Debug.DrawRay(transform.position, ray.direction * hit.distance, Color.red, 1.0f);
 
-            if(hit.rigidbody != null)
+            if (hit.rigidbody != null)
             {
                 Debug.Log("No null");
-                hit.rigidbody.AddForce(ray.direction * hitForce, ForceMode.Impulse);
+                hit.rigidbody.AddForce(direction * hitForce, ForceMode.Impulse);
 
                 EnemyBehaviour target = hit.transform.gameObject.GetComponent<EnemyBehaviour>();
-                
+
                 targetEnemy = target;
                 targetEnemy.LoseLife(hitDamage);
             }
         }
-        if (shootgun)
-        {
-            
-        }
-        StartCoroutine(WaitFireRate());
+        Debug.DrawRay(origin, direction, Color.blue, 3);
+
     }
     private IEnumerator WaitFireRate() //Usar corutinas para contar tiempo
     {
@@ -115,6 +154,7 @@ public class Gun : MonoBehaviour
         hitForce = 0.5f;
         hitDamage = 0.5f;
         reloadTime = 2f;
+        shootgun = false;
         //Particles
         psShape.angle = 5.5f;
         psMain.duration = 0.5f;
@@ -144,6 +184,7 @@ public class Gun : MonoBehaviour
         hitForce = 1f;
         hitDamage = 2;
         reloadTime = 1f;
+        shootgun = false;
         //Particles
         psShape.angle = 5.5f;
         psMain.duration = 0.5f;
@@ -157,6 +198,7 @@ public class Gun : MonoBehaviour
         maxDistance = Mathf.Infinity;
         hitForce = 2f;
         hitDamage = 1;
+        shootgun = false;
         reloadTime = 10f;
         //Particles
         psShape.angle = 5.5f;
