@@ -7,6 +7,7 @@ public class GroundEnemy : EnemyBehaviour
 {
     // Start is called before the first frame update
     private NavMeshAgent agent;
+    private BoxCollider[] fists;
     private bool isAttacking;
     public float fistRate;
     protected override void Start()
@@ -14,6 +15,11 @@ public class GroundEnemy : EnemyBehaviour
         base.Start();
         agent = GetComponent<NavMeshAgent>();
         agent.speed = speed;
+        fists = GetComponentsInChildren<BoxCollider>();
+        foreach (BoxCollider collider in fists)
+        {
+            collider.enabled = false;
+        }
     }
 
     // Update is called once per frame
@@ -42,6 +48,20 @@ public class GroundEnemy : EnemyBehaviour
         {
             animator.SetBool("Walking", true);
         }
+        if(isAttacking)
+        {
+            foreach (BoxCollider collider in fists)
+            {
+                collider.enabled = true;
+            }
+        }
+        else
+        {
+            foreach (BoxCollider collider in fists)
+            {
+                collider.enabled = false;
+            }
+        }
     }
     private void Attack()
     {
@@ -58,5 +78,15 @@ public class GroundEnemy : EnemyBehaviour
         isAttacking = false;
 
         // yield return null;//cierra la corutina
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(isAttacking)
+        {
+            if (other.tag == "Player")
+            {
+                player.LoseLife(1);
+            }
+        }
     }
 }

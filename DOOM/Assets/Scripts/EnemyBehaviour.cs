@@ -17,6 +17,7 @@ public class EnemyBehaviour : MonoBehaviour
     public bool canMove;
     protected bool isDead;
     public bool isInUse;
+    private int deadCount;
     // Start is called before the first frame update
     protected virtual void Start()
     {
@@ -28,6 +29,7 @@ public class EnemyBehaviour : MonoBehaviour
         animator.enabled = false;
         life = iniLife;
         isDead = false;
+        deadCount = 1;
     }
     // Update is called once per frame
     protected virtual void Update()
@@ -54,6 +56,7 @@ public class EnemyBehaviour : MonoBehaviour
         //animator.enabled = false;
         canMove = false;
         //TurnOnRagdoll();
+        deadCount += 1;
         StartCoroutine(WaitForResetEnemy());
     }
     private IEnumerator WaitForResetEnemy()
@@ -72,26 +75,13 @@ public class EnemyBehaviour : MonoBehaviour
         animator.enabled = false;
         life = iniLife;
         isInUse = false;
+        ResetBuf();
     }
-    /*private void SetRagdollParts()
+    void ResetBuf()
     {
-        Collider[] colliders = this.gameObject.GetComponentsInChildren<Collider>();
-        foreach(Collider c in colliders)
-        {
-            if(c.gameObject != this.gameObject)
-            {
-                c.isTrigger = true;
-                ragdoll.Add(c);
-            }
-        }
-    }*/
-    /*private void TurnOnRagdoll()
-    {
-        this.gameObject.GetComponent<BoxCollider>().enabled = false;
-
-        foreach(Collider c in ragdoll)
-        {
-            c.isTrigger = false;
-        }
-    }*/
+        if (deadCount >= 5) deadCount = 5;
+        transform.localScale = new Vector3(deadCount, deadCount, deadCount);
+        speed += deadCount;
+        life *= deadCount;
+    }
 }
