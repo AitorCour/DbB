@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private CharacterController controller;
+    private GlitchEffect glitchEffect;
     private Vector2 axis;
     public float speed;
     public Vector3 moveDirection;
@@ -12,7 +13,7 @@ public class PlayerController : MonoBehaviour
     public float jumpSpeed;
     public bool jump;
     public float gravityMag;
-
+    public float iniLife;
     public float playerLife;
     //public Animator animacion;
 
@@ -22,6 +23,8 @@ public class PlayerController : MonoBehaviour
        // moveDirection.x = axis.x * speed;
       //  moveDirection.z = axis.y * speed;
         controller = GetComponent<CharacterController>();
+        glitchEffect = GetComponentInChildren<GlitchEffect>();
+        playerLife = iniLife;
 	}
 	
 	// Update is called once per frame
@@ -72,6 +75,45 @@ public class PlayerController : MonoBehaviour
     {
         playerLife -= damage;
         Handheld.Vibrate();
+        glitchEffect.intensity = 1;
+        glitchEffect.flipIntensity = 1;
+        glitchEffect.colorIntensity = 1;
+        StartCoroutine(BugCamera());
     }
-    
+    private IEnumerator BugCamera() //Usar corutinas para contar tiempo
+    {
+        yield return new WaitForSeconds(1);
+        if(playerLife <= iniLife/1.5)
+        {
+            glitchEffect.intensity = 0.15f;
+            glitchEffect.flipIntensity = 0.15f;
+            glitchEffect.colorIntensity = 0.15f;
+        }
+        if (playerLife <= iniLife / 2)
+        {
+            glitchEffect.intensity = 0.30f;
+            glitchEffect.flipIntensity = 0.30f;
+            glitchEffect.colorIntensity = 0.30f;
+        }
+        if (playerLife <= iniLife / 2.5)
+        {
+            glitchEffect.intensity = 0.50f;
+            glitchEffect.flipIntensity = 0.50f;
+            glitchEffect.colorIntensity = 0.50f;
+        }
+        if (playerLife <= iniLife / 3)
+        {
+            glitchEffect.intensity = 0.75f;
+            glitchEffect.flipIntensity = 0.75f;
+            glitchEffect.colorIntensity = 0.75f;
+        }
+        else
+        {
+            glitchEffect.intensity = 0;
+            glitchEffect.flipIntensity = 0;
+            glitchEffect.colorIntensity = 0;
+        }
+
+        // yield return null;//cierra la corutina
+    }
 }

@@ -133,7 +133,7 @@ MonoBehaviour:
   iniLife: 2
   animator: {fileID: 0}
   distance: 0
-  attackDistance: 2
+  attackDistance: 3
   speed: 4
   canMove: 1
   isInUse: 0

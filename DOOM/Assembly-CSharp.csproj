@@ -67,6 +67,7 @@
     <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModuleUI.cs" />
     <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
     <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModuleUtils.cs" />
+    <Compile Include="Assets\Imported\unityglitch-master\GlitchEffect.cs" />
     <Compile Include="Assets\Joystick Pack\Examples\JoystickPlayerExample.cs" />
     <Compile Include="Assets\Joystick Pack\Examples\JoystickSetterExample.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Base\Joystick.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="Assets\Scripts\Spawn.cs" />
     <Compile Include="Assets\Scripts\TweenAnims.cs" />
     <None Include="Assets\Demigiant\DOTween\readme.txt" />
+    <None Include="Assets\Imported\unityglitch-master\GlitchShader.shader" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/unity2018/DoomButBetter/DOOM/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
