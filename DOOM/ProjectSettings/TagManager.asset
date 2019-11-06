@@ -13,6 +13,9 @@ TagManager:
   - Boundary
   - PauseButton
   - Pilar
+  - ShootGun
+  - MiniGun
+  - Revolver
   layers:
   - Default
   - TransparentFX

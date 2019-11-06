@@ -19,7 +19,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: 114.89899, y: -176.9, z: -258.96802}
+        value: {x: 117.545, y: -148.106, z: -240.89}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -144,7 +144,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 114.89899
+        value: 117.545
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -163,7 +163,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -176.9
+        value: -148.106
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -182,7 +182,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -258.96802
+        value: -240.89
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -404,8 +404,8 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.x
-    path: free3dmodel_skeleton/hips/abdomen/abdomen2/chest/shoulder.R/upper_arm.R
+    attribute: m_LocalEulerAngles.z
+    path: free3dmodel_skeleton/hips/abdomen/abdomen2/chest/shoulder.L/upper_arm.L
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -415,7 +415,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: free3dmodel_skeleton/hips/abdomen/abdomen2/chest/shoulder.R/upper_arm.R
+    path: free3dmodel_skeleton/hips/abdomen/abdomen2/chest/shoulder.L/upper_arm.L
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -424,8 +424,8 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.z
-    path: free3dmodel_skeleton/hips/abdomen/abdomen2/chest/shoulder.R/upper_arm.R
+    attribute: m_LocalEulerAngles.x
+    path: free3dmodel_skeleton/hips/abdomen/abdomen2/chest/shoulder.L/upper_arm.L
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -465,7 +465,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: free3dmodel_skeleton/hips/abdomen/abdomen2/chest/shoulder.L/upper_arm.L
+    path: free3dmodel_skeleton/hips/abdomen/abdomen2/chest/shoulder.R/upper_arm.R
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -475,7 +475,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: free3dmodel_skeleton/hips/abdomen/abdomen2/chest/shoulder.L/upper_arm.L
+    path: free3dmodel_skeleton/hips/abdomen/abdomen2/chest/shoulder.R/upper_arm.R
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -485,7 +485,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: free3dmodel_skeleton/hips/abdomen/abdomen2/chest/shoulder.L/upper_arm.L
+    path: free3dmodel_skeleton/hips/abdomen/abdomen2/chest/shoulder.R/upper_arm.R
     classID: 4
     script: {fileID: 0}
   m_HasGenericRootTransform: 0

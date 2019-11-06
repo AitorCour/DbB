@@ -20,12 +20,15 @@ public class Gun : MonoBehaviour
     public bool isReloading;
     public bool isShootingParticles;
     private bool shootgun;
+    private bool revolver;
+    private bool miniGun;
 
     public float reloadTime;
 
     private EnemyBehaviour targetEnemy;
     private PilarBehaviour targetPilar;
     private ParticleSystem particles;
+    private Animator animator;
     ParticleSystem.MainModule psMain;
     ParticleSystem.ShapeModule psShape;
     ParticleSystem.EmissionModule psEmission;
@@ -35,25 +38,32 @@ public class Gun : MonoBehaviour
     public Transform bloodTransform;
     public ParticleSystem[] particleBlood;
     private int currentBlood = 0;
+
+    private GameObject shootGunOBJ;
+    private GameObject revolverOBJ;
+    private GameObject miniGunOBJ;
     //public Animator animacion;
 
     // Use this for initialization
     void Start ()
     {
         particles = GetComponentInChildren<ParticleSystem>();
+        shootGunOBJ = GameObject.FindGameObjectWithTag("ShootGun");
+        revolverOBJ = GameObject.FindGameObjectWithTag("Revolver");
+        miniGunOBJ = GameObject.FindGameObjectWithTag("MiniGun");
+        animator = GetComponentInChildren<Animator>();
         psMain = particles.main;
         psShape = particles.shape;
         psEmission = particles.emission;
         isShooting = false;
         isReloading = false;
         currentAmmo = maxAmmo;
-        SetMiniGun();
+        SetRevolver();
         CreateBlood();
 	}
 
     public void Shot()
     {
-        
         if (isShooting || isReloading || currentAmmo <= 0)
         {
             return;
@@ -133,6 +143,11 @@ public class Gun : MonoBehaviour
 
                 targetEnemy = target;
                 targetEnemy.LoseLife(hitDamage);
+                particleBlood[currentBlood].transform.position = hit.point;
+                particleBlood[currentBlood].time = 0;
+                particleBlood[currentBlood].Play();
+                currentBlood++;
+                if (currentBlood >= maxBlood) currentBlood = 0;
             }
             else if (hit.rigidbody != null && hit.rigidbody.tag == "Pilar")
             {
@@ -206,33 +221,45 @@ public class Gun : MonoBehaviour
     {
         maxAmmo = 5;
         currentAmmo = maxAmmo;
-        fireRate = 0.5f;
+        fireRate = 1f;
         maxDistance = 20;
         hitForce = 5f;
         hitDamage = 10;
         reloadTime = 4f;
-        shootgun = true;
         //Particles
+        particles.transform.parent = shootGunOBJ.transform;
+        particles.transform.position = new Vector3(-0.8f, 0, 0);
         psShape.angle = 45;
         psMain.duration = 0.7f;
         psEmission.rateOverTime = 80;
+        //Bools
+        shootgun = true;
+        revolver = false;
+        miniGun = false;
+        SetWeaponObjects();
     }
-    void SetRafagas()
+    void SetRevolver()
     {
-        maxAmmo = 20;
+        maxAmmo = 6;
         currentAmmo = maxAmmo;
-        fireRate = 0.1f;
+        fireRate = 0.5f;
         maxDistance = Mathf.Infinity;
         hitForce = 1f;
         hitDamage = 2;
         reloadTime = 1f;
         shootgun = false;
         //Particles
+        particles.transform.parent = revolverOBJ.transform;
         psShape.angle = 5.5f;
         psMain.duration = 0.5f;
         psEmission.rateOverTime = 40;
+        //Bools
+        shootgun = false;
+        revolver = true;
+        miniGun = false;
+        SetWeaponObjects();
     }
-    void SetMiniGun()
+    public void SetMiniGun()
     {
         maxAmmo = 300;
         currentAmmo = maxAmmo;
@@ -243,9 +270,47 @@ public class Gun : MonoBehaviour
         shootgun = false;
         reloadTime = 10f;
         //Particles
+        particles.transform.parent = miniGunOBJ.transform;
         psShape.angle = 5.5f;
         psMain.duration = 0.5f;
         psEmission.rateOverTime = 40;
+        //Bools
+        shootgun = false;
+        revolver = false;
+        miniGun = true;
+        SetWeaponObjects();
+    }
+    void SetWeaponObjects()
+    {
+        animator.SetBool("Revolver", false);
+        animator.SetBool("ShootGun", false);
+        animator.SetBool("MiniGun", false);
+        if (revolver && !shootgun && !miniGun)
+        {
+            revolverOBJ.SetActive(true);
+            shootGunOBJ.SetActive(false);
+            miniGunOBJ.SetActive(false);
+            animator.SetBool("Revolver", true);
+        }
+        else if (!revolver && shootgun && !miniGun)
+        {
+            revolverOBJ.SetActive(false);
+            shootGunOBJ.SetActive(true);
+            miniGunOBJ.SetActive(false);
+            animator.SetBool("ShootGun", true);
+            Debug.Log("Escopeta");
+        }
+        else if (!revolver && !shootgun && miniGun)
+        {
+            revolverOBJ.SetActive(false);
+            shootGunOBJ.SetActive(false);
+            miniGunOBJ.SetActive(true);
+            animator.SetBool("MiniGun", true);
+        }
+        else
+        {
+            Debug.Log("Hacha LOL");
+        }
     }
     #endregion
 }
