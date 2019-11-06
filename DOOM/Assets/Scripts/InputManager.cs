@@ -81,8 +81,8 @@ public class InputManager : MonoBehaviour
         }
         else if(mobileControls && !paused)
         {
-            mouseAxis.x = mobileLookAxis.x;
-            mouseAxis.y = mobileLookAxis.y;
+            mouseAxis.x = mobileLookAxis.x * sensitivity;
+            mouseAxis.y = mobileLookAxis.y * sensitivity;
         }
         lookRotation.SetRotation(mouseAxis);
 
