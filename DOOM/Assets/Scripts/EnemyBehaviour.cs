@@ -5,8 +5,9 @@ using UnityEngine;
 public class EnemyBehaviour : MonoBehaviour
 {
     public float iniLife;
-    private float life;
+    protected float life;
     protected PlayerController player;
+    private CapsuleCollider colliderEnemy;
     public Animator animator;
     //public List<Collider> ragdoll = new List<Collider>();
     public float distance;
@@ -23,6 +24,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         animator = GetComponentInChildren<Animator>();
+        colliderEnemy = GetComponent<CapsuleCollider>();
         //SetRagdollParts();
         iniPos = transform.position;
         canMove = false;
@@ -49,15 +51,29 @@ public class EnemyBehaviour : MonoBehaviour
             isDead = true;
         }
     }
-    private void Dead()
+    protected virtual void Dead()
     {
         animator.SetLayerWeight(1, 0);
         animator.SetTrigger("Dead");
+        colliderEnemy.enabled = false;
         //animator.enabled = false;
         canMove = false;
         //TurnOnRagdoll();
         deadCount += 1;
         StartCoroutine(WaitForResetEnemy());
+        int value = Random.Range(0, 100);
+        if(value > 60 && value < 70)
+        {
+            Debug.Log("ShootGun");
+        }
+        else if (value > 50 && value < 60)
+        {
+            Debug.Log("Axe");
+        }
+        else if (value > 95 && value < 99)
+        {
+            Debug.Log("MiniGun");
+        }
     }
     private IEnumerator WaitForResetEnemy()
     {
@@ -67,6 +83,7 @@ public class EnemyBehaviour : MonoBehaviour
     private void ResetEnemy()
     {
         transform.position = iniPos;
+        colliderEnemy.enabled = true;
         canMove = false;
         isDead = false;
         animator.SetLayerWeight(1, 0.5f);

@@ -24,10 +24,17 @@ public class Gun : MonoBehaviour
     public float reloadTime;
 
     private EnemyBehaviour targetEnemy;
+    private PilarBehaviour targetPilar;
     private ParticleSystem particles;
     ParticleSystem.MainModule psMain;
     ParticleSystem.ShapeModule psShape;
     ParticleSystem.EmissionModule psEmission;
+
+    public int maxBlood;
+    public GameObject bloodPrefab;
+    public Transform bloodTransform;
+    public ParticleSystem[] particleBlood;
+    private int currentBlood = 0;
     //public Animator animacion;
 
     // Use this for initialization
@@ -41,8 +48,8 @@ public class Gun : MonoBehaviour
         isReloading = false;
         currentAmmo = maxAmmo;
         SetMiniGun();
+        CreateBlood();
 	}
-	
 
     public void Shot()
     {
@@ -62,10 +69,10 @@ public class Gun : MonoBehaviour
             RaycastHit hit = new RaycastHit();
             if (Physics.Raycast(ray, out hit, maxDistance, mask))
             {
-                Debug.Log(hit.transform.name);
+                //Debug.Log(hit.transform.name);
                 //Debug.DrawRay(transform.position, ray.direction * hit.distance, Color.red, 1.0f);
 
-                if (hit.rigidbody != null)
+                if (hit.rigidbody != null && hit.rigidbody.tag == "Enemy")
                 {
                     Debug.Log("No null");
                     hit.rigidbody.AddForce(ray.direction * hitForce, ForceMode.Impulse);
@@ -74,6 +81,20 @@ public class Gun : MonoBehaviour
 
                     targetEnemy = target;
                     targetEnemy.LoseLife(hitDamage);
+                    particleBlood[currentBlood].transform.position = hit.point;
+                    particleBlood[currentBlood].time = 0;
+                    particleBlood[currentBlood].Play();
+                    currentBlood++;
+                    if (currentBlood >= maxBlood) currentBlood = 0;
+                }
+                else if(hit.rigidbody != null && hit.rigidbody.tag == "Pilar")
+                {
+                    hit.rigidbody.AddForce(ray.direction * hitForce, ForceMode.Impulse);
+
+                    PilarBehaviour target = hit.transform.gameObject.GetComponent<PilarBehaviour>();
+
+                    targetPilar = target;
+                    targetPilar.LoseLife(hitDamage);
                 }
             }
         }
@@ -100,10 +121,10 @@ public class Gun : MonoBehaviour
         //RaycastHit hit = new RaycastHit();
         if (Physics.Raycast(ray, out hit, maxDistance, mask))
         {
-            Debug.Log(hit.transform.name);
+            //Debug.Log(hit.transform.name);
             //Debug.DrawRay(transform.position, ray.direction * hit.distance, Color.red, 1.0f);
 
-            if (hit.rigidbody != null)
+            if (hit.rigidbody != null && hit.rigidbody.tag == "Enemy")
             {
                 Debug.Log("No null");
                 hit.rigidbody.AddForce(direction * hitForce, ForceMode.Impulse);
@@ -112,6 +133,15 @@ public class Gun : MonoBehaviour
 
                 targetEnemy = target;
                 targetEnemy.LoseLife(hitDamage);
+            }
+            else if (hit.rigidbody != null && hit.rigidbody.tag == "Pilar")
+            {
+                hit.rigidbody.AddForce(ray.direction * hitForce, ForceMode.Impulse);
+
+                PilarBehaviour target = hit.transform.gameObject.GetComponent<PilarBehaviour>();
+
+                targetPilar = target;
+                targetPilar.LoseLife(hitDamage);
             }
         }
         Debug.DrawRay(origin, direction, Color.blue, 3);
@@ -143,7 +173,19 @@ public class Gun : MonoBehaviour
         currentAmmo = maxAmmo;
         isReloading = false;
     }
+    void CreateBlood()
+    {
+        particleBlood = new ParticleSystem[maxBlood];
 
+        for (int i = 0; i < maxBlood; i++)
+        {
+            Vector3 spawnPos = bloodTransform.position;
+            spawnPos.z -= i * 2;
+            GameObject b = Instantiate(bloodPrefab, spawnPos, Quaternion.identity, bloodTransform);
+            b.name = "Blood_" + i;
+            particleBlood[i] = b.GetComponent<ParticleSystem>();
+        }
+    }
     #region Sets
     void SetMachineGun()
     {

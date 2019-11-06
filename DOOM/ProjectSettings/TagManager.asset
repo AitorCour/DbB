@@ -12,6 +12,7 @@ TagManager:
   - ReloadButton
   - Boundary
   - PauseButton
+  - Pilar
   layers:
   - Default
   - TransparentFX

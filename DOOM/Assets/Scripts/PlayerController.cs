@@ -88,26 +88,30 @@ public class PlayerController : MonoBehaviour
             glitchEffect.intensity = 0.15f;
             glitchEffect.flipIntensity = 0.15f;
             glitchEffect.colorIntensity = 0.15f;
+            Debug.Log("CameraBug_1");
         }
         if (playerLife <= iniLife / 2)
         {
             glitchEffect.intensity = 0.30f;
             glitchEffect.flipIntensity = 0.30f;
             glitchEffect.colorIntensity = 0.30f;
+            Debug.Log("CameraBug_2");
         }
         if (playerLife <= iniLife / 2.5)
         {
             glitchEffect.intensity = 0.50f;
             glitchEffect.flipIntensity = 0.50f;
             glitchEffect.colorIntensity = 0.50f;
+            Debug.Log("CameraBug_3");
         }
         if (playerLife <= iniLife / 3)
         {
             glitchEffect.intensity = 0.75f;
             glitchEffect.flipIntensity = 0.75f;
             glitchEffect.colorIntensity = 0.75f;
+            Debug.Log("CameraBug_4");
         }
-        else
+        if (playerLife > iniLife / 1.5)
         {
             glitchEffect.intensity = 0;
             glitchEffect.flipIntensity = 0;

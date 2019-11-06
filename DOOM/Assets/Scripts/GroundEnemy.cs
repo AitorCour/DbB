@@ -67,7 +67,7 @@ public class GroundEnemy : EnemyBehaviour
     {
         if (isAttacking) return;
         if (isDead) return;
-        Debug.Log("Shot");
+        //Debug.Log("Shot");
         animator.SetTrigger("Punch");
         isAttacking = true;
         StartCoroutine(WaitFistRate());
