@@ -22,13 +22,19 @@ public class Gun : MonoBehaviour
     private bool shootgun;
     private bool revolver;
     private bool miniGun;
+    private bool machineGun;
+    private bool uzi;
 
     public float reloadTime;
 
     private EnemyBehaviour targetEnemy;
     private PilarBehaviour targetPilar;
-    private ParticleSystem particles;
-    private Animator animator;
+    private ParticleSystem particlesShootGun;
+    private ParticleSystem particlesRevolver;
+    private ParticleSystem particlesMiniGun;
+    private ParticleSystem particlesUzi;
+    private ParticleSystem particlesMachine;
+    //private Animator animator;
     ParticleSystem.MainModule psMain;
     ParticleSystem.ShapeModule psShape;
     ParticleSystem.EmissionModule psEmission;
@@ -42,19 +48,27 @@ public class Gun : MonoBehaviour
     private GameObject shootGunOBJ;
     private GameObject revolverOBJ;
     private GameObject miniGunOBJ;
+    private GameObject uziOBJ;
+    private GameObject machineGunOBJ;
     //public Animator animacion;
 
     // Use this for initialization
     void Start ()
     {
-        particles = GetComponentInChildren<ParticleSystem>();
+        particlesShootGun = GameObject.FindGameObjectWithTag("ShootGun").GetComponentInChildren<ParticleSystem>();
+        particlesRevolver = GameObject.FindGameObjectWithTag("Revolver").GetComponentInChildren<ParticleSystem>();
+        //particlesMiniGun = GameObject.FindGameObjectWithTag("MiniGun").GetComponentInChildren<ParticleSystem>();
+        particlesUzi = GameObject.FindGameObjectWithTag("Uzi").GetComponentInChildren<ParticleSystem>();
+        particlesMachine = GameObject.FindGameObjectWithTag("MachineGun").GetComponentInChildren<ParticleSystem>();
         shootGunOBJ = GameObject.FindGameObjectWithTag("ShootGun");
         revolverOBJ = GameObject.FindGameObjectWithTag("Revolver");
-        miniGunOBJ = GameObject.FindGameObjectWithTag("MiniGun");
-        animator = GetComponentInChildren<Animator>();
-        psMain = particles.main;
+        //miniGunOBJ = GameObject.FindGameObjectWithTag("MiniGun");
+        uziOBJ = GameObject.FindGameObjectWithTag("Uzi");
+        machineGunOBJ = GameObject.FindGameObjectWithTag("MachineGun");
+        //animator = GetComponentInChildren<Animator>();
+        /*psMain = particles.main;
         psShape = particles.shape;
-        psEmission = particles.emission;
+        psEmission = particles.emission;*/
         isShooting = false;
         isReloading = false;
         currentAmmo = maxAmmo;
@@ -68,7 +82,26 @@ public class Gun : MonoBehaviour
         {
             return;
         }
-        particles.Play();
+        if(revolver)
+        {
+            particlesRevolver.Play();
+        }
+        else if(miniGun)
+        {
+            particlesMiniGun.Play();
+        }
+        else if(machineGun)
+        {
+            particlesMachine.Play();
+        }
+        else if(uzi)
+        {
+            particlesUzi.Play();
+        }
+        else
+        {
+            particlesShootGun.Play();
+        }
 
         isShooting = true;
         currentAmmo--;
@@ -202,22 +235,41 @@ public class Gun : MonoBehaviour
         }
     }
     #region Sets
-    void SetMachineGun()
+    public void SetMachineGun()
     {
-        maxAmmo = 100;
+        maxAmmo = 30;
         currentAmmo = maxAmmo;
-        fireRate = 0.3f;
+        fireRate = 0.2f;
         maxDistance = Mathf.Infinity;
         hitForce = 0.5f;
         hitDamage = 0.5f;
         reloadTime = 2f;
+        //
         shootgun = false;
-        //Particles
-        psShape.angle = 5.5f;
-        psMain.duration = 0.5f;
-        psEmission.rateOverTime = 40;
+        revolver = false;
+        miniGun = false;
+        machineGun = true;
+        uzi = false;
+        SetWeaponObjects();
     }
-    void SetShootGun()
+    public void SetUzi()
+    {
+        maxAmmo = 50;
+        currentAmmo = maxAmmo;
+        fireRate = 0.1f;
+        maxDistance = Mathf.Infinity;
+        hitForce = 0.5f;
+        hitDamage = 0.5f;
+        reloadTime = 2f;
+        //
+        shootgun = false;
+        revolver = false;
+        miniGun = false;
+        machineGun = false;
+        uzi = true;
+        SetWeaponObjects();
+    }
+    public void SetShootGun()
     {
         maxAmmo = 5;
         currentAmmo = maxAmmo;
@@ -227,36 +279,40 @@ public class Gun : MonoBehaviour
         hitDamage = 10;
         reloadTime = 4f;
         //Particles
-        particles.transform.parent = shootGunOBJ.transform;
-        particles.transform.position = new Vector3(-0.8f, 0, 0);
-        psShape.angle = 45;
+        //particles.transform.parent = shootGunOBJ.transform;
+        //particles.transform.position = new Vector3(-0.8f, 0, 0);
+        /*psShape.angle = 45;
         psMain.duration = 0.7f;
-        psEmission.rateOverTime = 80;
+        psEmission.rateOverTime = 80;*/
         //Bools
         shootgun = true;
         revolver = false;
         miniGun = false;
+        machineGun = false;
+        uzi = false;
         SetWeaponObjects();
     }
-    void SetRevolver()
+    public void SetRevolver()
     {
-        maxAmmo = 6;
+        maxAmmo = 9;
         currentAmmo = maxAmmo;
-        fireRate = 0.5f;
+        fireRate = 0.2f;
         maxDistance = Mathf.Infinity;
         hitForce = 1f;
         hitDamage = 2;
         reloadTime = 1f;
         shootgun = false;
         //Particles
-        particles.transform.parent = revolverOBJ.transform;
-        psShape.angle = 5.5f;
+        //particles.transform.parent = revolverOBJ.transform;
+        /*psShape.angle = 5.5f;
         psMain.duration = 0.5f;
-        psEmission.rateOverTime = 40;
+        psEmission.rateOverTime = 40;*/
         //Bools
         shootgun = false;
         revolver = true;
         miniGun = false;
+        machineGun = false;
+        uzi = false;
         SetWeaponObjects();
     }
     public void SetMiniGun()
@@ -270,42 +326,77 @@ public class Gun : MonoBehaviour
         shootgun = false;
         reloadTime = 10f;
         //Particles
-        particles.transform.parent = miniGunOBJ.transform;
-        psShape.angle = 5.5f;
+        //particles.transform.parent = miniGunOBJ.transform;
+        /*psShape.angle = 5.5f;
         psMain.duration = 0.5f;
-        psEmission.rateOverTime = 40;
+        psEmission.rateOverTime = 40;*/
         //Bools
         shootgun = false;
         revolver = false;
         miniGun = true;
+        machineGun = false;
+        uzi = false;
         SetWeaponObjects();
     }
     void SetWeaponObjects()
     {
-        animator.SetBool("Revolver", false);
-        animator.SetBool("ShootGun", false);
-        animator.SetBool("MiniGun", false);
+        //animator.SetBool("Revolver", false);
+        //animator.SetBool("ShootGun", false);
+        //animator.SetBool("MiniGun", false);
         if (revolver && !shootgun && !miniGun)
         {
             revolverOBJ.SetActive(true);
             shootGunOBJ.SetActive(false);
-            miniGunOBJ.SetActive(false);
-            animator.SetBool("Revolver", true);
+            machineGunOBJ.SetActive(false);
+            uziOBJ.SetActive(false);
+            //miniGunOBJ.SetActive(false);
+            //animator.SetBool("Revolver", true);
         }
         else if (!revolver && shootgun && !miniGun)
         {
             revolverOBJ.SetActive(false);
             shootGunOBJ.SetActive(true);
-            miniGunOBJ.SetActive(false);
-            animator.SetBool("ShootGun", true);
+            machineGunOBJ.SetActive(false);
+            uziOBJ.SetActive(false);
+            //miniGunOBJ.SetActive(false);
+            //animator.SetBool("ShootGun", true);
             Debug.Log("Escopeta");
         }
         else if (!revolver && !shootgun && miniGun)
         {
             revolverOBJ.SetActive(false);
             shootGunOBJ.SetActive(false);
-            miniGunOBJ.SetActive(true);
-            animator.SetBool("MiniGun", true);
+            machineGunOBJ.SetActive(false);
+            uziOBJ.SetActive(false);
+            //miniGunOBJ.SetActive(true);
+            //animator.SetBool("MiniGun", true);
+        }
+        else if (machineGun)
+        {
+            revolverOBJ.SetActive(false);
+            shootGunOBJ.SetActive(false);
+            machineGunOBJ.SetActive(true);
+            uziOBJ.SetActive(false);
+            //miniGunOBJ.SetActive(true);
+            //animator.SetBool("MiniGun", true);
+        }
+        else if (uzi)
+        {
+            revolverOBJ.SetActive(false);
+            shootGunOBJ.SetActive(false);
+            machineGunOBJ.SetActive(false);
+            uziOBJ.SetActive(true);
+            //miniGunOBJ.SetActive(true);
+            //animator.SetBool("MiniGun", true);
+        }
+        else if (!revolver && !shootgun && miniGun)
+        {
+            revolverOBJ.SetActive(false);
+            shootGunOBJ.SetActive(false);
+            machineGunOBJ.SetActive(false);
+            uziOBJ.SetActive(false);
+            //miniGunOBJ.SetActive(true);
+            //animator.SetBool("MiniGun", true);
         }
         else
         {

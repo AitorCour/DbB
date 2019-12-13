@@ -16,6 +16,8 @@ TagManager:
   - ShootGun
   - MiniGun
   - Revolver
+  - Uzi
+  - MachineGun
   layers:
   - Default
   - TransparentFX
