@@ -78,6 +78,9 @@
     <Compile Include="Assets\Joystick Pack\Scripts\Others\FixedButton.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Others\FixedMoveCameraButton.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Others\FixedTouchField.cs" />
+    <Compile Include="Assets\Scenes\psx_retroshader-master\Assets\rotate.cs" />
+    <Compile Include="Assets\Scenes\psx_retroshader-master\Assets\Shaders\Billboard\billboard.cs" />
+    <Compile Include="Assets\Scenes\psx_retroshader-master\Assets\Shaders\imageEffects\cPrecision.cs" />
     <Compile Include="Assets\Scripts\Ebullet.cs" />
     <Compile Include="Assets\Scripts\Ecanon.cs" />
     <Compile Include="Assets\Scripts\EnemyBehaviour.cs" />
@@ -94,8 +97,22 @@
     <Compile Include="Assets\Scripts\ShotGun.cs" />
     <Compile Include="Assets\Scripts\Spawn.cs" />
     <Compile Include="Assets\Scripts\TweenAnims.cs" />
+    <None Include="Assets\Scenes\psx_retroshader-master\Assets\Shaders\psx-unlit.shader" />
+    <None Include="Assets\Scenes\psx_retroshader-master\Assets\Shaders\psx-unlit_noambient.shader" />
+    <None Include="Assets\Scenes\psx_retroshader-master\Assets\Shaders\Reflective\psx-unlit-mult.shader" />
+    <None Include="Assets\Scenes\psx_retroshader-master\Assets\Shaders\Trasparent\psx-trasparent-unlit-noambient.shader" />
+    <None Include="Assets\Scenes\psx_retroshader-master\ProjectSettings\ProjectVersion.txt" />
+    <None Include="Assets\Scenes\psx_retroshader-master\Assets\Shaders\Trasparent\psx-trasparent-unlit.shader" />
     <None Include="Assets\Demigiant\DOTween\readme.txt" />
+    <None Include="Assets\Scenes\psx_retroshader-master\Assets\Shaders\Reflective\psx-unlit-add.shader" />
+    <None Include="Assets\Scenes\psx_retroshader-master\Assets\Shaders\Reflective\psx-vertexlit-mult.shader" />
+    <None Include="Assets\Scenes\psx_retroshader-master\Assets\Shaders\Reflective\psx-unlit_noambient-mult.shader" />
+    <None Include="Assets\Scenes\psx_retroshader-master\Assets\Shaders\Resources\cPrecision.shader" />
     <None Include="Assets\Imported\unityglitch-master\GlitchShader.shader" />
+    <None Include="Assets\Scenes\psx_retroshader-master\Assets\Shaders\psx-vertexlit.shader" />
+    <None Include="Assets\Scenes\psx_retroshader-master\Assets\Shaders\Reflective\psx-unlit_noambient-add.shader" />
+    <None Include="Assets\Scenes\psx_retroshader-master\Assets\Shaders\Reflective\psx-vertexlit-add.shader" />
+    <None Include="Assets\Scenes\psx_retroshader-master\Assets\Shaders\Trasparent\psx-trasparent-vertexlit.shader" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/unity2018/DoomButBetter/DOOM/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>

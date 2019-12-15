@@ -41,7 +41,7 @@ public class Gun : MonoBehaviour
 
     public int maxBlood;
     public GameObject bloodPrefab;
-    public Transform bloodTransform;
+    public Transform bloodTransform = null;
     public ParticleSystem[] particleBlood;
     private int currentBlood = 0;
 
@@ -223,16 +223,22 @@ public class Gun : MonoBehaviour
     }
     void CreateBlood()
     {
-        particleBlood = new ParticleSystem[maxBlood];
+        
+        if (bloodTransform == null) return;
 
-        for (int i = 0; i < maxBlood; i++)
+        else if(bloodTransform != null)
         {
-            Vector3 spawnPos = bloodTransform.position;
-            spawnPos.z -= i * 2;
-            GameObject b = Instantiate(bloodPrefab, spawnPos, Quaternion.identity, bloodTransform);
-            b.name = "Blood_" + i;
-            particleBlood[i] = b.GetComponent<ParticleSystem>();
+            particleBlood = new ParticleSystem[maxBlood];
+            for (int i = 0; i < maxBlood; i++)
+            {
+                Vector3 spawnPos = bloodTransform.position;
+                spawnPos.z -= i * 2;
+                GameObject b = Instantiate(bloodPrefab, spawnPos, Quaternion.identity, bloodTransform);
+                b.name = "Blood_" + i;
+                particleBlood[i] = b.GetComponent<ParticleSystem>();
+            }
         }
+        
     }
     #region Sets
     public void SetMachineGun()

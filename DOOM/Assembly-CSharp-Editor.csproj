@@ -337,6 +337,12 @@
     <Reference Include="UnityEditor.Purchasing">
       <HintPath>D:/unity2018/DoomButBetter/DOOM/Library/PackageCache/com.unity.purchasing@2.0.3/Editor/UnityEditor.Purchasing.dll</HintPath>
     </Reference>
+    <Reference Include="UnityVS.VersionSpecific">
+      <HintPath>D:/unity2018/DoomButBetter/DOOM/Assets/Scenes/psx_retroshader-master/Assets/UnityVS/Editor/UnityVS.VersionSpecific.dll</HintPath>
+    </Reference>
+    <Reference Include="SyntaxTree.VisualStudio.Unity.Messaging">
+      <HintPath>D:/unity2018/DoomButBetter/DOOM/Assets/Scenes/psx_retroshader-master/Assets/UnityVS/Editor/SyntaxTree.VisualStudio.Unity.Messaging.dll</HintPath>
+    </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.4.0f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
     </Reference>
