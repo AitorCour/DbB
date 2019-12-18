@@ -9,7 +9,7 @@ public class TweenAnims : MonoBehaviour
     void Start()
     {
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-        ChangeColor();
+        //ChangeColor();
     }
 
     // Update is called once per frame
