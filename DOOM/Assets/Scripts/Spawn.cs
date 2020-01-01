@@ -13,21 +13,30 @@ public class Spawn : MonoBehaviour
 
     private float timeCounter;
     public float spawnTime;
+    private bool startSpawn;
     // Start is called before the first frame update
     void Start()
     {
+        startSpawn = false;
         CreateEnemies();
+        StartCoroutine(WaitSpawn());
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!startSpawn) return;
         if (timeCounter >= spawnTime)
         {
             SpawnEnemy();
             timeCounter = 0;
         }
         else timeCounter += Time.deltaTime;
+    }
+    private IEnumerator WaitSpawn() //Usar corutinas para contar tiempo
+    {
+        yield return new WaitForSeconds(5);
+        startSpawn = true;
     }
 
     void CreateEnemies()
@@ -41,6 +50,7 @@ public class Spawn : MonoBehaviour
             GameObject b = Instantiate(enemyPrefab, spawnPos, Quaternion.identity, enemiesTransform);
             b.name = "Enemy_" + i;
             enemies[i] = b.GetComponent<EnemyBehaviour>();
+            
         }
     }
     void SpawnEnemy()
@@ -48,9 +58,12 @@ public class Spawn : MonoBehaviour
         if (enemies[currentEnemy].isInUse == false)
         {
             enemies[currentEnemy].transform.position = transform.position;
-            enemies[currentEnemy].canMove = true;
+            
             enemies[currentEnemy].animator.enabled = true;
             enemies[currentEnemy].isInUse = true;
+            
+            enemies[currentEnemy].ActiveNavmesh();
+            enemies[currentEnemy].canMove = true;
             currentEnemy++;
             if (currentEnemy >= maxEnemies) currentEnemy = 0;
         }

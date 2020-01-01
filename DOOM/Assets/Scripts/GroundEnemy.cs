@@ -15,6 +15,7 @@ public class GroundEnemy : EnemyBehaviour
         base.Start();
         agent = GetComponent<NavMeshAgent>();
         agent.speed = speed;
+        agent.enabled = false;
         fists = GetComponentsInChildren<BoxCollider>();
         foreach (BoxCollider collider in fists)
         {
@@ -26,6 +27,7 @@ public class GroundEnemy : EnemyBehaviour
     protected override void Update()
     {
         base.Update();
+        if (agent.enabled == false ) return;
         //if (isDead) return;
         agent.SetDestination(player.transform.position);
         if (distance <= attackDistance)
@@ -88,5 +90,16 @@ public class GroundEnemy : EnemyBehaviour
                 player.LoseLife(1);
             }
         }
+    }
+    public override void ActiveNavmesh()
+    {
+        StartCoroutine(WaitMesh());
+    }
+    private IEnumerator WaitMesh() //Usar corutinas para contar tiempo
+    {
+        yield return new WaitForSeconds(5);
+        agent.enabled = true;
+
+        // yield return null;//cierra la corutina
     }
 }

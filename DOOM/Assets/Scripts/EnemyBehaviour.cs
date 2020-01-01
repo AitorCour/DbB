@@ -92,7 +92,7 @@ public class EnemyBehaviour : MonoBehaviour
         animator.enabled = false;
         life = iniLife;
         isInUse = false;
-        ResetBuf();
+        //ResetBuf();
     }
     void ResetBuf()
     {
@@ -100,5 +100,9 @@ public class EnemyBehaviour : MonoBehaviour
         transform.localScale = new Vector3(deadCount, deadCount, deadCount);
         speed += deadCount;
         life *= deadCount;
+    }
+    public virtual void ActiveNavmesh()
+    {
+        Debug.Log("First Step to work");
     }
 }
