@@ -49,4 +49,8 @@ public class GameManager : MonoBehaviour
             paused = false;
         }
     }
+    public void SetTime(float newTime)
+    {
+        Time.timeScale = newTime;
+    }
 }

@@ -18,6 +18,7 @@ TagManager:
   - Revolver
   - Uzi
   - MachineGun
+  - Manager
   layers:
   - Default
   - TransparentFX

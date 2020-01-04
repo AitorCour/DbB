@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     private GlitchEffect glitchEffect;
     private Vector2 axis;
     public float speed;
+    private float iniSpeed;
     public Vector3 moveDirection;
     private float forceToGround = Physics.gravity.y;
     public float jumpSpeed;
@@ -25,6 +26,7 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         glitchEffect = GetComponentInChildren<GlitchEffect>();
         playerLife = iniLife;
+        iniSpeed = speed;
 	}
 	
 	// Update is called once per frame
@@ -119,5 +121,11 @@ public class PlayerController : MonoBehaviour
         }
 
         // yield return null;//cierra la corutina
+    }
+    public void SetSpeed(int newSpeed, int newJump)
+    {
+        speed = newSpeed;
+        jumpSpeed = newJump;
+          
     }
 }
