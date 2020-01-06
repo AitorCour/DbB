@@ -9,14 +9,17 @@ public class Spawn : MonoBehaviour
     public GameObject enemyPrefab;
     public Transform enemiesTransform;
     public EnemyBehaviour[] enemies;
+    private PlayerController player;
     private int currentEnemy = 0;
 
     private float timeCounter;
+    private float distance;
     public float spawnTime;
     private bool startSpawn;
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         startSpawn = false;
         CreateEnemies();
         StartCoroutine(WaitSpawn());
@@ -25,7 +28,13 @@ public class Spawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        distance = Vector3.Distance(player.transform.position, transform.position);
         if (!startSpawn) return;
+        if (distance < 5)
+        {
+            //Debug.Log("StopSpawn");
+            return;
+        }
         if (timeCounter >= spawnTime)
         {
             SpawnEnemy();
@@ -35,7 +44,7 @@ public class Spawn : MonoBehaviour
     }
     private IEnumerator WaitSpawn() //Usar corutinas para contar tiempo
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(2);
         startSpawn = true;
     }
 

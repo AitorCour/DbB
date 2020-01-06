@@ -16,7 +16,7 @@ public class GetMinigun : MonoBehaviour
         child = GetComponentInChildren<MeshRenderer>();
         child.enabled = false;
         weapon = Random.Range(0, 4);
-        Debug.Log(weapon);
+        //Debug.Log(weapon);
         SetWeapon();
     }
     private void SetWeapon()

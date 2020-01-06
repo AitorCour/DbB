@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     // Start is called before the first frame update
     private InputManager inputManager;
+    private AudioSource music;
     private DynamicJoystick dynamicJoystick;
     private FixedTouchField fixedTouchField;
     private FixedMoveCameraButton shootButton;
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         inputManager = GetComponent<InputManager>();
+        music = GameObject.FindGameObjectWithTag("Music").GetComponent<AudioSource>();
         dynamicJoystick = GameObject.FindGameObjectWithTag("DynamicJoystick").GetComponent<DynamicJoystick>();
         fixedTouchField = GameObject.FindGameObjectWithTag("TouchField").GetComponent<FixedTouchField>();
         shootButton = GameObject.FindGameObjectWithTag("ShootButton").GetComponent<FixedMoveCameraButton>();
@@ -52,5 +54,6 @@ public class GameManager : MonoBehaviour
     public void SetTime(float newTime)
     {
         Time.timeScale = newTime;
+        music.pitch = newTime;
     }
 }

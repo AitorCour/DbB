@@ -8,7 +8,7 @@ public class GroundEnemy : EnemyBehaviour
     // Start is called before the first frame update
     private NavMeshAgent agent;
     private BoxCollider[] fists;
-    private bool isAttacking;
+    public bool isAttacking;
     public float fistRate;
     protected override void Start()
     {
@@ -29,14 +29,22 @@ public class GroundEnemy : EnemyBehaviour
         base.Update();
         if (agent.enabled == false ) return;
         //if (isDead) return;
-        agent.SetDestination(player.transform.position);
+        if(followingPlayer)
+        {
+            agent.SetDestination(player.transform.position);
+        }
+        else
+        {
+            agent.isStopped = true;
+        }
+
         if (distance <= attackDistance)
         {
             agent.isStopped = true;
             Attack();
 
         }
-        else if (distance > attackDistance && !isAttacking && canMove)
+        else if (distance > attackDistance && !isAttacking && canMove && followingPlayer)
         {
             agent.isStopped = false;
         }
@@ -76,6 +84,7 @@ public class GroundEnemy : EnemyBehaviour
     }
     private IEnumerator WaitFistRate() //Usar corutinas para contar tiempo
     {
+        Debug.Log("corrutina");
         yield return new WaitForSeconds(fistRate);
         isAttacking = false;
 

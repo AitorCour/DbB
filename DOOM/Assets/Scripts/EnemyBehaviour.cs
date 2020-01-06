@@ -17,8 +17,11 @@ public class EnemyBehaviour : MonoBehaviour
 
     public bool canMove;
     protected bool isDead;
+    protected bool playerDetected;
+    protected bool followingPlayer;
     public bool isInUse;
     private int deadCount;
+    protected int radius = 5;
     // Start is called before the first frame update
     protected virtual void Start()
     {
@@ -33,12 +36,26 @@ public class EnemyBehaviour : MonoBehaviour
         isDead = false;
         deadCount = 1;
     }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireSphere(transform.position, radius);
+    }
     // Update is called once per frame
     protected virtual void Update()
     {
         if (!canMove) return;
         if (isDead) return;
         distance = Vector3.Distance(player.transform.position, transform.position);
+        if(distance < radius)
+        {
+            playerDetected = true;
+            followingPlayer = true;
+        }
+        else
+        {
+            playerDetected = false;
+        }
     }
     public void LoseLife(float damage)
     {
@@ -55,6 +72,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         animator.SetLayerWeight(1, 0);
         animator.SetTrigger("Dead");
+        animator.SetBool("Death", true);
         colliderEnemy.enabled = false;
         //animator.enabled = false;
         canMove = false;
@@ -87,11 +105,14 @@ public class EnemyBehaviour : MonoBehaviour
         canMove = false;
         isDead = false;
         animator.SetLayerWeight(1, 0.5f);
+        animator.SetBool("Death", false);
         animator.SetTrigger("Reset");
         //this.enabled = false;
         animator.enabled = false;
         life = iniLife;
         isInUse = false;
+        playerDetected = false;
+        followingPlayer = false;
         //ResetBuf();
     }
     void ResetBuf()
