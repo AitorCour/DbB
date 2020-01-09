@@ -10,12 +10,16 @@ public class GroundEnemy : EnemyBehaviour
     private BoxCollider[] fists;
     public bool isAttacking;
     public float fistRate;
+    public int pathNum;
+    private bool changePoint;
     protected override void Start()
     {
         base.Start();
         agent = GetComponent<NavMeshAgent>();
         agent.speed = speed;
         agent.enabled = false;
+        changePoint = true;
+        //GoNearestPath();
         fists = GetComponentsInChildren<BoxCollider>();
         foreach (BoxCollider collider in fists)
         {
@@ -35,7 +39,22 @@ public class GroundEnemy : EnemyBehaviour
         }
         else
         {
-            agent.isStopped = true;
+            if (changePoint)
+            {
+                GoNearestPath();
+                Debug.Log("newPath");
+                changePoint = false;
+            }
+            else if(!changePoint)
+            {
+                agent.SetDestination(path[pathNum].transform.position);
+                Debug.Log(pathNum);
+                distancePath = Vector3.Distance(path[pathNum].transform.position, transform.position);
+                if (distancePath <= 2)
+                {
+                    changePoint = true;
+                }
+            }
         }
 
         if (distance <= attackDistance)
@@ -44,7 +63,7 @@ public class GroundEnemy : EnemyBehaviour
             Attack();
 
         }
-        else if (distance > attackDistance && !isAttacking && canMove && followingPlayer)
+        else if (distance > attackDistance && !isAttacking && canMove )
         {
             agent.isStopped = false;
         }
@@ -111,4 +130,12 @@ public class GroundEnemy : EnemyBehaviour
 
         // yield return null;//cierra la corutina
     }
+     void GoNearestPath()
+    {
+        //base.GoNearestPath();
+        int i = Random.Range(0, path.Length);
+        pathNum = i;
+    }
+
+
 }

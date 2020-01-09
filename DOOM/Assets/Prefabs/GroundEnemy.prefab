@@ -137,6 +137,11 @@ MonoBehaviour:
   speed: 4
   canMove: 1
   isInUse: 0
+  path:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  isAttacking: 0
   fistRate: 2
 --- !u!136 &6855057757601426407
 CapsuleCollider:

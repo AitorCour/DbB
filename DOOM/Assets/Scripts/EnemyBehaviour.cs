@@ -11,6 +11,7 @@ public class EnemyBehaviour : MonoBehaviour
     public Animator animator;
     //public List<Collider> ragdoll = new List<Collider>();
     public float distance;
+    public float distancePath;
     public float attackDistance;
     public float speed;
     protected Vector3 iniPos;
@@ -22,10 +23,16 @@ public class EnemyBehaviour : MonoBehaviour
     public bool isInUse;
     private int deadCount;
     protected int radius = 5;
+
+    public GameObject[] path;
+    protected Transform[] transformPath;
+    public GameObject newPoint;
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        path = GameObject.FindGameObjectsWithTag("Path");
         animator = GetComponentInChildren<Animator>();
         colliderEnemy = GetComponent<CapsuleCollider>();
         //SetRagdollParts();
@@ -35,6 +42,12 @@ public class EnemyBehaviour : MonoBehaviour
         life = iniLife;
         isDead = false;
         deadCount = 1;
+
+        transformPath = new Transform[path.Length];
+        for(int i = 0; i < path.Length; i++)
+        {
+            transformPath[i] = path[i].GetComponent<Transform>();
+        }
     }
     private void OnDrawGizmos()
     {
@@ -126,4 +139,12 @@ public class EnemyBehaviour : MonoBehaviour
     {
         Debug.Log("First Step to work");
     }
+    /*protected virtual void GoNearestPath()
+    {
+        Debug.Log("1st Path");
+        int i = Random.Range(0, path.Length);
+        //for(int d = 0; d < path.Lenght, d++)
+        //distance = Vector3.Distance(path[i].position, transform.position);
+        //path[i] = newPoint;
+    }*/
 }

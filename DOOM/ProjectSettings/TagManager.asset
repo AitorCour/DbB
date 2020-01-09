@@ -20,6 +20,7 @@ TagManager:
   - MachineGun
   - Manager
   - Music
+  - Path
   layers:
   - Default
   - TransparentFX
