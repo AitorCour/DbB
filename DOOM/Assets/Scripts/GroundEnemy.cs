@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class GroundEnemy : EnemyBehaviour
 {
     // Start is called before the first frame update
-    private NavMeshAgent agent;
+    //private NavMeshAgent agent;
     private BoxCollider[] fists;
     public bool isAttacking;
     public float fistRate;
@@ -15,10 +15,10 @@ public class GroundEnemy : EnemyBehaviour
     protected override void Start()
     {
         base.Start();
-        agent = GetComponent<NavMeshAgent>();
+        /*agent = GetComponent<NavMeshAgent>();
         agent.speed = speed;
         agent.enabled = false;
-        changePoint = true;
+        changePoint = true;*/
         //GoNearestPath();
         fists = GetComponentsInChildren<BoxCollider>();
         foreach (BoxCollider collider in fists)
@@ -130,7 +130,7 @@ public class GroundEnemy : EnemyBehaviour
 
         // yield return null;//cierra la corutina
     }
-     void GoNearestPath()
+    void GoNearestPath()
     {
         //base.GoNearestPath();
         int i = Random.Range(0, path.Length);

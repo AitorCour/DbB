@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyBehaviour : MonoBehaviour
 {
+    protected NavMeshAgent agent;
     public float iniLife;
     protected float life;
     protected PlayerController player;
@@ -31,6 +33,10 @@ public class EnemyBehaviour : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
+        agent = GetComponent<NavMeshAgent>();
+        agent.speed = speed;
+        agent.enabled = false;
+
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         path = GameObject.FindGameObjectsWithTag("Path");
         animator = GetComponentInChildren<Animator>();
