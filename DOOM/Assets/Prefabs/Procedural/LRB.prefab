@@ -103,8 +103,8 @@ GameObject:
   - component: {fileID: 2556730966282570246}
   - component: {fileID: 3758724400522775961}
   - component: {fileID: 317615995304808225}
-  - component: {fileID: 8887853961550510974}
-  m_Layer: 10
+  - component: {fileID: 584765376212811950}
+  m_Layer: 0
   m_Name: LRB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,7 +184,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 10, y: 2.220446e-16, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8887853961550510974
+--- !u!114 &584765376212811950
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -193,7 +193,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 7674520131890169658}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eef73a5a666d9bd4e9e63fa2045729ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 3f8f3ef1f39742e4ca46de4628a0b504, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 1
+  rooms:
+  - {fileID: 1407319786742291221, guid: 4c5940554469c4645855e43f43e7f1b5, type: 3}
+  - {fileID: 7674520131890169658}
+  - {fileID: 159169024915667515, guid: e8c016296160c784c9ed9f7c0d5d3d37, type: 3}
+  - {fileID: 3838618965431336254, guid: 6c4003a6ad2758b43880886b13bb5a7b, type: 3}
+  roomType: 1
+  layer:
+    serializedVersion: 2
+    m_Bits: 1024

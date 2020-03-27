@@ -83,6 +83,8 @@
     <Compile Include="Assets\Scenes\psx_retroshader-master\Assets\Shaders\imageEffects\cPrecision.cs" />
     <Compile Include="Assets\Scripts\1\Procecdural.cs" />
     <Compile Include="Assets\Scripts\1\RoomType.cs" />
+    <Compile Include="Assets\Scripts\2\Room.cs" />
+    <Compile Include="Assets\Scripts\2\SpaceForRoom.cs" />
     <Compile Include="Assets\Scripts\Ebullet.cs" />
     <Compile Include="Assets\Scripts\Ecanon.cs" />
     <Compile Include="Assets\Scripts\EnemyBehaviour.cs" />
