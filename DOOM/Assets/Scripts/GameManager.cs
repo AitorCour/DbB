@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         inputManager = GetComponent<InputManager>();
-        music = GameObject.FindGameObjectWithTag("Music").GetComponent<AudioSource>();
+        //music = GameObject.FindGameObjectWithTag("Music").GetComponent<AudioSource>();
         dynamicJoystick = GameObject.FindGameObjectWithTag("DynamicJoystick").GetComponent<DynamicJoystick>();
         fixedTouchField = GameObject.FindGameObjectWithTag("TouchField").GetComponent<FixedTouchField>();
         shootButton = GameObject.FindGameObjectWithTag("ShootButton").GetComponent<FixedMoveCameraButton>();
@@ -30,11 +30,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        inputManager.mobileAxis = dynamicJoystick.Direction;
+        /*inputManager.mobileAxis = dynamicJoystick.Direction;
         inputManager.mobileLookAxis = fixedTouchField.TouchDist;
         inputManager.shootAxis = shootButton.Pressed;
         inputManager.jumpAxis = jumpButton.pressed;
-        inputManager.reloadAxis = reloadButton.pressed;
+        inputManager.reloadAxis = reloadButton.pressed;*/
     }
     public void Pause()
     {
