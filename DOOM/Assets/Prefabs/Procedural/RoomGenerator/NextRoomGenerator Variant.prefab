@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &3619560922613513631
+--- !u!1001 &3923314909096940515
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 1412013627107703986, guid: 9190b3b3becbb9f45b90d99d4ec3b493,
         type: 3}
       propertyPath: m_Name
-      value: NextRoomGenerator_0
+      value: NextRoomGenerator
       objectReference: {fileID: 0}
     - target: {fileID: 1412013627107703988, guid: 9190b3b3becbb9f45b90d99d4ec3b493,
         type: 3}
